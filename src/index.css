@@ -1,0 +1,403 @@
+/* ============================================================
+   index.css — Main stylesheet for Exec Dashboard
+   Tailwind CSS v3 + Custom Utilities
+   ============================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+/* ─── CSS Variables ────────────────────────────────────────── */
+:root {
+  --color-brand-indigo: #6366f1;
+  --color-brand-emerald: #10b981;
+  --color-brand-rose: #f43f5e;
+  --color-brand-amber: #f59e0b;
+
+  --radius-card: 2rem;        /* 32px */
+  --radius-card-lg: 3rem;     /* 48px */
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+  --shadow-card-hover: 0 8px 32px rgba(0,0,0,.10);
+
+  --transition-base: 200ms cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── Base / Reset ─────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar            { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track      { @apply bg-slate-100; }
+  ::-webkit-scrollbar-thumb      { @apply bg-slate-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover{ @apply bg-slate-400; }
+}
+
+/* ─── Component Layer ──────────────────────────────────────── */
+@layer components {
+
+  /* ── Card ── */
+  .card {
+    @apply bg-white rounded-[var(--radius-card)] border border-slate-200 shadow-sm;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--transition-base);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .card-lg {
+    @apply bg-white border border-slate-200 shadow-sm;
+    border-radius: var(--radius-card-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ── Card Header ── */
+  .card-header {
+    @apply px-10 py-8 border-b border-slate-100 bg-slate-50/30;
+  }
+
+  .card-title {
+    @apply text-xl font-black text-slate-800 tracking-tight;
+  }
+
+  .card-subtitle {
+    @apply text-xs font-bold text-slate-400 uppercase tracking-widest mt-1;
+  }
+
+  /* ── Stat Card ── */
+  .stat-card {
+    @apply p-6 rounded-3xl border;
+  }
+
+  .stat-label {
+    @apply text-[10px] font-black uppercase tracking-widest block mb-1;
+  }
+
+  .stat-value {
+    @apply text-4xl font-black;
+  }
+
+  /* ── Badge / Pill ── */
+  .platform-pill {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold;
+  }
+
+  .badge-emerald {
+    @apply bg-emerald-100 text-emerald-700;
+  }
+
+  .badge-rose {
+    @apply bg-rose-100 text-rose-700;
+  }
+
+  .badge-indigo {
+    @apply bg-indigo-100 text-indigo-700;
+  }
+
+  .badge-amber {
+    @apply bg-amber-100 text-amber-700;
+  }
+
+  /* ── Button ── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           rounded-2xl text-sm font-bold
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-indigo-600 text-white
+           hover:bg-indigo-700 active:scale-95
+           focus:ring-indigo-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-slate-100 text-slate-700
+           hover:bg-slate-200 active:scale-95
+           focus:ring-slate-400;
+  }
+
+  .btn-danger {
+    @apply btn bg-rose-600 text-white
+           hover:bg-rose-700 active:scale-95
+           focus:ring-rose-500;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-slate-600
+           hover:bg-slate-100 active:scale-95
+           focus:ring-slate-400;
+  }
+
+  .btn-icon {
+    @apply btn p-2.5;
+  }
+
+  /* ── Upload Zone ── */
+  .upload-zone {
+    @apply relative border-2 border-dashed border-slate-300 rounded-3xl
+           flex flex-col items-center justify-center gap-4
+           p-12 cursor-pointer text-center
+           transition-all duration-300;
+  }
+
+  .upload-zone:hover,
+  .upload-zone.dragover {
+    @apply border-indigo-400 bg-indigo-50/50;
+  }
+
+  .upload-zone.success {
+    @apply border-emerald-400 bg-emerald-50/50;
+  }
+
+  .upload-zone.error {
+    @apply border-rose-400 bg-rose-50/50;
+  }
+
+  /* ── Progress Bar ── */
+  .progress-track {
+    @apply w-full bg-slate-700/50 h-2 rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+  }
+
+  /* ── Table ── */
+  .data-table {
+    @apply w-full text-left;
+  }
+
+  .data-table thead {
+    @apply bg-slate-50/80 text-slate-500 text-[10px] uppercase font-black tracking-[0.2em];
+  }
+
+  .data-table thead th {
+    @apply px-6 py-5;
+  }
+
+  .data-table thead th:first-child {
+    @apply px-10;
+  }
+
+  .data-table tbody {
+    @apply divide-y divide-slate-50;
+  }
+
+  .data-table tbody tr {
+    @apply hover:bg-slate-50/80 transition-all;
+  }
+
+  .data-table tbody td {
+    @apply px-6 py-6;
+  }
+
+  .data-table tbody td:first-child {
+    @apply px-10;
+  }
+
+  /* ── Section Header ── */
+  .section-label {
+    @apply text-[10px] font-black uppercase tracking-[0.2em] text-slate-500;
+  }
+
+  /* ── Toast / Notification ── */
+  .toast {
+    @apply fixed bottom-6 right-6 z-50
+           flex items-center gap-3 px-5 py-3.5
+           rounded-2xl shadow-2xl text-sm font-bold;
+  }
+
+  .toast-success { @apply bg-emerald-600 text-white; }
+  .toast-info    { @apply bg-indigo-600 text-white; }
+  .toast-warning { @apply bg-amber-500 text-white; }
+
+  /* ── Dialog / Modal Overlay ── */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-40
+           flex items-center justify-center;
+  }
+
+  .modal-box {
+    @apply bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md mx-4 z-50;
+  }
+
+  /* ── Chart Container ── */
+  .chart-wrapper {
+    @apply w-full;
+  }
+
+  /* ── Nav / Header ── */
+  .app-header {
+    @apply sticky top-0 z-30 bg-white/80 backdrop-blur-md
+           border-b border-slate-200/80;
+  }
+
+  /* ── Empty State ── */
+  .empty-state {
+    @apply flex flex-col items-center justify-center gap-4
+           py-24 text-center text-slate-400;
+  }
+
+  .empty-state-icon {
+    @apply w-12 h-12 text-slate-300;
+  }
+
+  .empty-state-text {
+    @apply font-bold italic text-lg;
+  }
+
+  /* ── History Item ── */
+  .history-item {
+    @apply flex items-center justify-between p-4
+           rounded-2xl cursor-pointer transition-all duration-200
+           border border-transparent;
+  }
+
+  .history-item:hover {
+    @apply bg-slate-50 border-slate-200;
+  }
+
+  .history-item.active {
+    @apply bg-indigo-50 border-indigo-200;
+  }
+
+  /* ── Month Selector ── */
+  .month-input {
+    @apply px-4 py-2 rounded-2xl border border-slate-200 bg-white
+           text-sm font-bold text-slate-700
+           focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent
+           transition-all duration-200;
+  }
+}
+
+/* ─── Utility Layer ────────────────────────────────────────── */
+@layer utilities {
+
+  /* Text gradient */
+  .text-gradient-indigo {
+    @apply bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-emerald {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent;
+  }
+
+  /* Glass effect */
+  .glass {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Dot pattern background */
+  .bg-dot-pattern {
+    background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Custom ring */
+  .ring-brand {
+    @apply ring-2 ring-indigo-400 ring-offset-2;
+  }
+
+  /* Animate shimmer (loading skeleton) */
+  .shimmer {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Scrollable container */
+  .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-snap-item {
+    scroll-snap-align: start;
+  }
+
+  /* No scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ─── Keyframes ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(99,102,241,.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+  100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+}
+
+/* ─── Animation helpers ────────────────────────────────────── */
+.animate-fade-in-up { animation: fadeInUp 0.4s ease-out both; }
+.animate-fade-in    { animation: fadeIn   0.3s ease-out both; }
+.animate-scale-in   { animation: scaleIn  0.3s ease-out both; }
+.animate-pulse-ring { animation: pulse-ring 2s infinite; }
+
+/* ─── Stagger delays (used with animate-fade-in-up) ───────── */
+.delay-50  { animation-delay:  50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* ─── Print styles ─────────────────────────────────────────── */
+@media print {
+  .no-print    { display: none !important; }
+  .app-header  { position: static; }
+  body         { background: white; }
+}
